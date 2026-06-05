@@ -1,0 +1,31 @@
+services:
+
+  selenoid:
+    image: aerokube/selenoid:1.11.3
+    container_name: selenoid
+    ports:
+      - "4444:4444"
+    networks:
+      - selenoid
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config:/etc/selenoid
+    command: >
+      -conf /etc/selenoid/browsers.json
+      -container-network selenoid
+
+  test:
+    build: .
+    container_name: test
+    depends_on:
+      - selenoid
+    networks:
+      - selenoid
+    environment:
+      SELENOID_URL: "http://selenoid:4444/wd/hub"
+    command: pytest -v
+
+networks:
+  selenoid:
+    name: selenoid
+    driver: bridge
