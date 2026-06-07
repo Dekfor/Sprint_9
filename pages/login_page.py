@@ -1,7 +1,6 @@
 import allure
 from pages.base_page import BasePage
 from locators.login_page_locators import (LoginPageLocators)
-from selenium.webdriver.support.ui import WebDriverWait
 
 class LoginPage(BasePage):
     @allure.step("Авторизоваться")
@@ -12,7 +11,7 @@ class LoginPage(BasePage):
 
         self.click(LoginPageLocators.LOGIN_BUTTON)
 
-        WebDriverWait(self.driver, 10).until(lambda d: "/recipes" in d.current_url)
+        self.wait_url_contains("/recipes")
 
     @allure.step("Проверить, что форма авторизации отображается")
     def login_form_visible(self):

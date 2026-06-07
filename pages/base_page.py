@@ -36,3 +36,7 @@ class BasePage:
     def get_current_url(self):
         return self.driver.current_url
     
+    def open_url(self, url):
+        self.driver.get(url)
+
+    def wait_url_contains(self, text):WebDriverWait(self.driver, 10).until(lambda d: text in d.current_url)

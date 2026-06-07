@@ -7,7 +7,7 @@ from data.urls import BASE_URL
 class MainPage(BasePage):
     @allure.step("Открыть главную сайта")
     def open(self):
-        self.driver.get(BASE_URL)
+        self.open_url(BASE_URL)
 
     @allure.step("Нажать 'Создать аккаунт'")
     def click_create_account(self):
